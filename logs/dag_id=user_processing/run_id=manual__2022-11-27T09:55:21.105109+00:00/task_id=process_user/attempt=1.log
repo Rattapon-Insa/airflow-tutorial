@@ -1,0 +1,40 @@
+[2022-11-27T09:55:37.982+0000] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: user_processing.process_user manual__2022-11-27T09:55:21.105109+00:00 [queued]>
+[2022-11-27T09:55:37.992+0000] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: user_processing.process_user manual__2022-11-27T09:55:21.105109+00:00 [queued]>
+[2022-11-27T09:55:37.993+0000] {taskinstance.py:1362} INFO - 
+--------------------------------------------------------------------------------
+[2022-11-27T09:55:37.995+0000] {taskinstance.py:1363} INFO - Starting attempt 1 of 1
+[2022-11-27T09:55:37.996+0000] {taskinstance.py:1364} INFO - 
+--------------------------------------------------------------------------------
+[2022-11-27T09:55:38.009+0000] {taskinstance.py:1383} INFO - Executing <Task(PythonOperator): process_user> on 2022-11-27 09:55:21.105109+00:00
+[2022-11-27T09:55:38.020+0000] {standard_task_runner.py:55} INFO - Started process 5203 to run task
+[2022-11-27T09:55:38.026+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'user_processing', 'process_user', 'manual__2022-11-27T09:55:21.105109+00:00', '--job-id', '32', '--raw', '--subdir', 'DAGS_FOLDER/user_processing.py', '--cfg-path', '/tmp/tmpsypdp3ag']
+[2022-11-27T09:55:38.031+0000] {standard_task_runner.py:83} INFO - Job 32: Subtask process_user
+[2022-11-27T09:55:38.125+0000] {task_command.py:376} INFO - Running <TaskInstance: user_processing.process_user manual__2022-11-27T09:55:21.105109+00:00 [running]> on host c7f7231a8603
+[2022-11-27T09:55:38.198+0000] {taskinstance.py:1592} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=user_processing
+AIRFLOW_CTX_TASK_ID=process_user
+AIRFLOW_CTX_EXECUTION_DATE=2022-11-27T09:55:21.105109+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2022-11-27T09:55:21.105109+00:00
+[2022-11-27T09:55:38.223+0000] {taskinstance.py:1851} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 175, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 193, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/user_processing.py", line 22, in _process_user
+    process_user.to_csv('tmp/process_user.csv', index=None, header=False)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/generic.py", line 3482, in to_csv
+    storage_options=storage_options,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/formats/format.py", line 1105, in to_csv
+    csv_formatter.save()
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/formats/csvs.py", line 243, in save
+    storage_options=self.storage_options,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/common.py", line 707, in get_handle
+    newline="",
+FileNotFoundError: [Errno 2] No such file or directory: 'tmp/process_user.csv'
+[2022-11-27T09:55:38.239+0000] {taskinstance.py:1406} INFO - Marking task as FAILED. dag_id=user_processing, task_id=process_user, execution_date=20221127T095521, start_date=20221127T095537, end_date=20221127T095538
+[2022-11-27T09:55:38.250+0000] {standard_task_runner.py:105} ERROR - Failed to execute job 32 for task process_user ([Errno 2] No such file or directory: 'tmp/process_user.csv'; 5203)
+[2022-11-27T09:55:38.277+0000] {local_task_job.py:164} INFO - Task exited with return code 1
+[2022-11-27T09:55:38.310+0000] {local_task_job.py:273} INFO - 0 downstream tasks scheduled from follow-on schedule check
