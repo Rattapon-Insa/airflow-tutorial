@@ -9,22 +9,22 @@ with DAG(
     
     extract_a = BashOperator(
         task_id ='extract_a',
-        bash_command='sleep 1'
+        bash_command='sleep 2'
     )
 
     extract_b = BashOperator(
         task_id = 'extract_b',
-        bash_command='sleep 1'
+        bash_command='sleep 2'
     )
 
     load_a = BashOperator(
         task_id = 'load_a',
-        bash_command='sleep 1'
+        bash_command='sleep 2'
     )
 
     load_b = BashOperator(
         task_id = 'load_b',
-        bash_command='sleep 1'
+        bash_command='sleep 2'
     )
 
     transform = BashOperator(
