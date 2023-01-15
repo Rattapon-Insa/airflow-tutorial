@@ -29,6 +29,7 @@ with DAG(
 
     transform = BashOperator(
         task_id = 'trasform',
+        queue='high_cpu',
         bash_command='sleep 1'
     )
 
