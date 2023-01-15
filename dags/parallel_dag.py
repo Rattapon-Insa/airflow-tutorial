@@ -11,3 +11,27 @@ with DAG(
         task_id ='extract_a',
         bash_command='sleep 1'
     )
+
+    extract_b = BashOperator(
+        task_id = 'extract_b',
+        bash_command='sleep 1'
+    )
+
+    load_a = BashOperator(
+        task_id = 'load_a',
+        bash_command='sleep 1'
+    )
+
+    load_b = BashOperator(
+        task_id = 'load_b',
+        bash_command='sleep 1'
+    )
+
+    transform = BashOperator(
+        task_id = 'trasform',
+        bash_command='sleep 1'
+    )
+
+    extract_a >> load_a
+    extract_b >> load_b
+    [load_a, load_b] >> transform
