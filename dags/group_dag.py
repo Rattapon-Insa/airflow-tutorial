@@ -1,45 +1,41 @@
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from datetime import datetime
+from airflow.operators.subdag import SubDagOperator
+from subdags.subdag_downloads import subdag_downloads
 
 with DAG(
-    'group_dag', start_date=datetime(2023,1,15),
+    'group_dag', start_date=datetime(2023, 1, 15),
     schedule_interval='@daily', catchup=False
 ) as dag:
 
-    download_a = BashOperator(
-        task_id = 'download_a',
-        bash_command="echo I will sleep for 3 sec | sleep 3"
-    )
+    args = {'start_date': dag.start_date, 'schedule_interval': dag.schedule_interval,
+            'catchup': dag.catchup}
 
-    download_b = BashOperator(
-        task_id = 'download_b',
-        bash_command="echo I will sleep for 3 sec | sleep 3"
-    )
-
-    download_c = BashOperator(
-        task_id = 'download_c',
-        bash_command="echo I will sleep for 3 sec | sleep 3"
+    downloads = SubDagOperator(
+        task_id='downloads',
+        subdag=subdag_downloads(dag.dag_id, 'downloads', args)
     )
 
     check_files = BashOperator(
-        task_id = 'check_files',
+        task_id='check_files',
         bash_command="echo checking files... | sleep 5 | echo checking complete.."
     )
 
     transfer_a = BashOperator(
-        task_id = 'transfer_a',
-        bash_command = 'echo transfer file a... | sleep 3'
+        task_id='transfer_a',
+        bash_command='echo transfer file a... | sleep 3'
     )
 
     transfer_b = BashOperator(
-        task_id = 'transfer_b',
-        bash_command = 'echo transfer file b... | sleep 3'
+        task_id='transfer_b',
+        bash_command='echo transfer file b... | sleep 3'
     )
 
     transfer_c = BashOperator(
-        task_id = 'transfer_c',
-        bash_command = 'echo transfer file c... | sleep 3'
+        task_id='transfer_c',
+        bash_command='echo transfer file c... | sleep 3'
     )
 
-    [download_a, download_b, download_c] >> check_files >> [transfer_a, transfer_b, transfer_c]
+    downloads >> check_files >> [
+        transfer_a, transfer_b, transfer_c]
