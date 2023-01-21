@@ -1,0 +1,23 @@
+[2023-01-21T05:36:25.466+0000] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: group_dag.transfers scheduled__2023-01-20T00:00:00+00:00 [queued]>
+[2023-01-21T05:36:25.490+0000] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: group_dag.transfers scheduled__2023-01-20T00:00:00+00:00 [queued]>
+[2023-01-21T05:36:25.491+0000] {taskinstance.py:1362} INFO - 
+--------------------------------------------------------------------------------
+[2023-01-21T05:36:25.492+0000] {taskinstance.py:1363} INFO - Starting attempt 1 of 1
+[2023-01-21T05:36:25.493+0000] {taskinstance.py:1364} INFO - 
+--------------------------------------------------------------------------------
+[2023-01-21T05:36:25.525+0000] {taskinstance.py:1383} INFO - Executing <Task(SubDagOperator): transfers> on 2023-01-20 00:00:00+00:00
+[2023-01-21T05:36:25.533+0000] {standard_task_runner.py:55} INFO - Started process 209 to run task
+[2023-01-21T05:36:25.539+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'group_dag', 'transfers', 'scheduled__2023-01-20T00:00:00+00:00', '--job-id', '89', '--raw', '--subdir', 'DAGS_FOLDER/group_dag.py', '--cfg-path', '/tmp/tmp5vs2oqnc']
+[2023-01-21T05:36:25.541+0000] {standard_task_runner.py:83} INFO - Job 89: Subtask transfers
+[2023-01-21T05:36:25.672+0000] {task_command.py:376} INFO - Running <TaskInstance: group_dag.transfers scheduled__2023-01-20T00:00:00+00:00 [running]> on host 2255277b485d
+[2023-01-21T05:36:25.798+0000] {taskinstance.py:1592} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=group_dag
+AIRFLOW_CTX_TASK_ID=transfers
+AIRFLOW_CTX_EXECUTION_DATE=2023-01-20T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-01-20T00:00:00+00:00
+[2023-01-21T05:36:25.802+0000] {warnings.py:110} WARNING - /home/***/.local/lib/python3.7/site-packages/***/utils/context.py:204: AirflowContextDeprecationWarning: Accessing 'execution_date' from the template is deprecated and will be removed in a future version. Please use 'data_interval_start' or 'logical_date' instead.
+  warnings.warn(_create_deprecation_warning(key, self._deprecation_replacements[key]))
+
+[2023-01-21T05:36:25.879+0000] {subdag.py:171} INFO - Created DagRun: scheduled__2023-01-20T00:00:00+00:00

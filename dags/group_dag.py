@@ -2,7 +2,8 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from datetime import datetime
 from airflow.operators.subdag import SubDagOperator
-from subdags.subdag_downloads import subdag_downloads
+from subdag_downloads import subdag_downloads
+from subdag_transfers import subdag_transfers
 
 with DAG(
     'group_dag', start_date=datetime(2023, 1, 15),
@@ -22,20 +23,9 @@ with DAG(
         bash_command="echo checking files... | sleep 5 | echo checking complete.."
     )
 
-    transfer_a = BashOperator(
-        task_id='transfer_a',
-        bash_command='echo transfer file a... | sleep 3'
+    transfers = SubDagOperator(
+        task_id = 'transfers',
+        subdag=subdag_downloads(dag.dag_id, 'transfers', args)
     )
 
-    transfer_b = BashOperator(
-        task_id='transfer_b',
-        bash_command='echo transfer file b... | sleep 3'
-    )
-
-    transfer_c = BashOperator(
-        task_id='transfer_c',
-        bash_command='echo transfer file c... | sleep 3'
-    )
-
-    downloads >> check_files >> [
-        transfer_a, transfer_b, transfer_c]
+    downloads >> check_files >> transfers
